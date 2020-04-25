@@ -18,35 +18,68 @@ services:
   #   volumes:
   #    - suricata-data:/var/log/suricata
 
-  elasticsearch:
-    build: elk/elasticsearch/
+  es01:
+    # build: elk/elasticsearch
     image: marizmendi/elasticsearch
-    container_name: elasticsearch
-    hostname: elasticsearch
+    container_name: es01
     environment:
-      - discovery.type=single-node
+      - node.name=es01
+      - cluster.name=es-docker-cluster
+      # - discovery.seed_hosts=es02
+      # - cluster.initial_master_nodes=es01,es02
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
     ulimits:
       memlock:
         soft: -1
         hard: -1
+    volumes:
+      - data01:/usr/share/elasticsearch/data
     ports:
-      - "9200:9200"
-      - "9300:9300"
+      - 9200:9200
     networks:
-    - default
+      - elastic
 
-  kibana:
-    build: elk/kibana/
-    image: marizmendi/kibana
-    container_name: kibana
-    hostname: kibana
-    ports:
-      - "5601:5601"
-    networks:
-    - default
+  # es02:
+  #   image: marizmendi/elasticsearch
+  #   container_name: es02
+  #   environment:
+  #     - node.name=es02
+  #     - cluster.name=es-docker-cluster
+  #     - discovery.seed_hosts=es01
+  #     - cluster.initial_master_nodes=es01,es02
+  #     - bootstrap.memory_lock=true
+  #     - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+  #   ulimits:
+  #     memlock:
+  #       soft: -1
+  #       hard: -1
+  #   volumes:
+  #     - data02:/usr/share/elasticsearch/data
+  #   ports:
+  #     - 9201:9201
+  #   networks:
+  #     - elastic
+
+  # kib01:
+  #   image: marizmendi/kibana
+  #   container_name: kib01
+  #   ports:
+  #     - 5601:5601
+  #   environment:
+  #     ELASTICSEARCH_URL: http://es01:9200
+  #     ELASTICSEARCH_HOSTS: http://es01:9200
+  #   networks:
+  #     - elastic
+
+volumes:
+  suricata-data:
+  data01:
+    driver: local
+  data02:
+    driver: local
 
 networks:
   default:
-
-volumes: 
-    suricata-data:
+  elastic:
+    driver: bridge
