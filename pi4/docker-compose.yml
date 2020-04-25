@@ -1,9 +1,26 @@
 version: "3"
+
 services:
     nginx:
         image: nginx
         networks: 
             - pi4-net
+
+    suricata:
+        image: marizmendi/suricata
+        restart: always
+        environment:
+        # For ET Pro ruleset replace "OPEN" with your OINKCODE
+            - OINKCODE=OPEN
+            - INTERFACE=wg0
+        network_mode: "host"
+        cap_add:
+            - NET_ADMIN
+            - SYS_NICE
+            - NET_RAW
+        volumes:
+            - /data/suricata/log:/var/log/suricata
+                        
     vault:
         image: vault
         cap_add: 
