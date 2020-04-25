@@ -1,11 +1,6 @@
 version: "3"
 
 services:
-    nginx:
-        image: nginx
-        networks: 
-            - pi4-net
-
     suricata:
         image: marizmendi/suricata
         restart: always
@@ -20,18 +15,3 @@ services:
             - NET_RAW
         volumes:
             - /data/suricata/log:/var/log/suricata
-                        
-    vault:
-        image: vault
-        cap_add: 
-            - IPC_LOCK
-        volumes:     
-            - vault-data
-        networks: 
-            - pi4-net
-
-volumes: 
-    vault-data:
-
-networks: 
-    pi4-net:
