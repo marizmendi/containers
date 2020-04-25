@@ -1,0 +1,52 @@
+version: '3'
+
+services:
+  # suricata:
+  #   build: suricata/
+  #   image: "marizmendi/suricata"
+  #   container_name: suricata
+  #   hostname: suricata
+  #   environment:
+  #    - OINKCODE=OPEN
+  #    - INTERFACE=wg0
+  #   network_mode: "host"
+  #   restart: always
+  #   cap_add:
+  #    - NET_ADMIN
+  #    - SYS_NICE
+  #    - NET_RAW
+  #   volumes:
+  #    - suricata-data:/var/log/suricata
+
+  elasticsearch:
+    build: elk/elasticsearch/
+    image: marizmendi/elasticsearch
+    container_name: elasticsearch
+    hostname: elasticsearch
+    environment:
+      - discovery.type=single-node
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    networks:
+    - default
+
+  kibana:
+    build: elk/kibana/
+    image: marizmendi/kibana
+    container_name: kibana
+    hostname: kibana
+    ports:
+      - "5601:5601"
+    networks:
+    - default
+
+networks:
+  default:
+
+volumes: 
+    suricata-data:
