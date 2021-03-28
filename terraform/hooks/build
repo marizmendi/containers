@@ -1,1 +1,2 @@
+#!/bin/bash
 docker buildx --platform $PLATFORMS -f $DOCKERFILE_PATH -t $IMAGE_NAME .
