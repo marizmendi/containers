@@ -1,4 +1,4 @@
-FROM golang:alpine
+FROM golang:alpine as builder
 
 WORKDIR /
 
@@ -9,7 +9,8 @@ RUN curl \
     | sort -t. -k 1,1n -k 2,2n -k 3,3n -k 4,4n \
     | egrep -v 'rc|alpha|beta' | egrep 'linux.*arm64' | tail -1) --output terraform.zip
 RUN apk del curl jq
+RUN unzip terraform.zip 
 
-RUN unzip terraform.zip -d /bin/
-
+FROM alpine
+COPY --from=builder /terraform /bin/
 ENTRYPOINT ["/bin/terraform"]
