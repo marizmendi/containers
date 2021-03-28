@@ -1,0 +1,1 @@
+docker buildx --platform linux/arm64 -f $DOCKERFILE_PATH -t $IMAGE_NAME .
