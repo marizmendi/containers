@@ -4,10 +4,11 @@ FROM golang:alpine AS build-env
 ENV SRC_DIR $GOPATH/src/github.com/bettercap/bettercap
 
 RUN apk add --update ca-certificates
-RUN apk add --no-cache --update bash iptables wireless-tools build-base libpcap-dev libusb-dev linux-headers libnetfilter_queue-dev git
+RUN apk add --no-cache --update bash iptables wireless-tools build-base libpcap-dev libusb-dev linux-headers libnetfilter_queue-dev git binutils-gold
+
+RUN git clone https://github.com/bettercap/bettercap $SRC_DIR
 
 WORKDIR $SRC_DIR
-ADD . $SRC_DIR
 RUN make
 
 # get caplets
