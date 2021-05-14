@@ -1,0 +1,18 @@
+FROM python:3.8-alpine3.12 as builder
+
+RUN apk add --no-cache build-base curl-dev git
+
+RUN git clone https://github.com/xmendez/wfuzz.git
+
+WORKDIR wfuzz/
+
+RUN python setup.py install
+
+
+FROM python:3.8-alpine3.12
+
+RUN apk add --no-cache curl-dev
+
+COPY --from=builder /usr/local /usr/local
+
+CMD wfuzz
