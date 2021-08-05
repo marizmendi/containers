@@ -2,6 +2,8 @@ name: bettercap
 
 on:
   push:
+    paths:
+      - 'bettercap/**'
     branches:
       - 'master'
 

@@ -2,6 +2,8 @@ name: wfuzz
 
 on:
   push:
+    paths:
+      - 'wfuzz/**'
     branches:
       - 'master'
 
