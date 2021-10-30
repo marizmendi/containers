@@ -27,4 +27,4 @@ jobs:
           tags: latest
           platform: "linux/arm64"
           context: ddclient
-          containerfiles: ./Containerfile
+          containerfiles: Containerfile
