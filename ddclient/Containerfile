@@ -9,7 +9,7 @@ RUN curl -L \
 RUN unzip ddclient.zip
 RUN mv ddclient-ddclient-* ddclient
 
-FROM alpine
+FROM docker.io/alpine
 COPY --from=builder /ddclient/ddclient /bin/
 
 RUN apk add --no-cache --virtual=build-dependencies curl wget make

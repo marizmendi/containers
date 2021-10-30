@@ -1,4 +1,4 @@
-FROM gradle:jdk15-hotspot
+FROM docker.io/gradle:jdk15-hotspot
 
 WORKDIR /
 
