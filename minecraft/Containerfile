@@ -1,0 +1,7 @@
+FROM debian:latest
+
+WORKDIR /Cuberite
+
+ADD https://download.cuberite.org/linux-armhf-raspbian/Cuberite.tar.gz Cuberite.tar.gz
+
+RUN tar -xzf Cuberite.tar.gz

@@ -1,4 +1,4 @@
-FROM perl:latest as builder
+FROM docker.io/perl:latest as builder
 
 RUN apt-get update
 RUN apt-get install -y zip libsys-hostname-long-perl libdata-validate-ip-perl libjson-any-perl libio-socket-ssl-perl gettext-base curl jq

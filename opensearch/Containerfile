@@ -1,0 +1,9 @@
+FROM gradle:jdk15-hotspot
+
+WORKDIR /
+
+RUN git clone https://github.com/opensearch-project/OpenSearch
+
+WORKDIR /OpenSearch/
+
+RUN gradle build

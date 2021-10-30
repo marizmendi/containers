@@ -1,5 +1,5 @@
 # build stage
-FROM golang:alpine AS build-env
+FROM docker.io/golang:alpine AS build-env
 
 ENV SRC_DIR $GOPATH/src/github.com/bettercap/bettercap
 
