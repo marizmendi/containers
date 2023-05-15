@@ -14,12 +14,10 @@
         "statusBar.background": "#0f3362",
         "statusBarItem.hoverBackground": "#164a8e",
         "statusBar.foreground": "#e7e7e7",
-        "editorGroup.border": "#164a8e",
-        "panel.border": "#164a8e",
         "sash.hoverBorder": "#164a8e",
-        "sideBar.border": "#164a8e",
         "statusBarItem.remoteBackground": "#0f3362",
-        "statusBarItem.remoteForeground": "#e7e7e7"
+        "statusBarItem.remoteForeground": "#e7e7e7",
+        "commandCenter.border": "#e7e7e799"
     },
-    "peacock.color": "#0f3362"
+    "peacock.color": "#0f3362",
 }
