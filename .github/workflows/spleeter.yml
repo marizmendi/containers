@@ -1,0 +1,41 @@
+name: spleeter
+
+on:
+  push:
+    paths:
+      - 'spleeter/**'
+      - '.github/workflows/spleeter.yml'
+    branches:
+      - 'master'
+  schedule:
+    - cron: "1 1 * * *"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+      - uses: actions/checkout@v2
+
+      - name: Install qemu dependency
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y qemu-user-static
+
+      - name: Build Image
+        uses: redhat-actions/buildah-build@v2
+        with:
+          image: marizmendi/spleeter
+          tags: latest
+          platform: "linux/arm64"
+          containerfiles: ./spleeter/Containerfile
+
+      - name: Push To ghcr.io
+        id: push-to-quay
+        uses: redhat-actions/push-to-registry@v2
+        with:
+          image: marizmendi/spleeter
+          tags: latest
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
